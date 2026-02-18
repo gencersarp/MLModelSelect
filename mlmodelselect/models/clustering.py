@@ -104,18 +104,18 @@ class AgglomerativeClustering(BaseModel):
     
     Parameters:
         n_clusters: Number of clusters
-        affinity: Distance metric ('euclidean', 'manhattan', 'cosine')
+        metric: Distance metric ('euclidean', 'manhattan', 'cosine')
         linkage: Linkage criterion ('ward', 'complete', 'average', 'single')
         distance_threshold: Linkage distance threshold above which clusters won't merge
         **kwargs: Additional sklearn parameters
     """
     
-    def __init__(self, n_clusters=2, affinity='euclidean', linkage='ward',
+    def __init__(self, n_clusters=2, metric='euclidean', linkage='ward',
                  distance_threshold=None, **kwargs):
-        super().__init__(n_clusters=n_clusters, affinity=affinity,
+        super().__init__(n_clusters=n_clusters, metric=metric,
                         linkage=linkage, distance_threshold=distance_threshold, **kwargs)
         self.model = SKAgglomerativeClustering(
-            n_clusters=n_clusters, affinity=affinity, linkage=linkage,
+            n_clusters=n_clusters, metric=metric, linkage=linkage,
             distance_threshold=distance_threshold, **kwargs
         )
         self.labels_ = None

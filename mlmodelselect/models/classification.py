@@ -21,17 +21,14 @@ class LogisticRegression(BaseModel):
         C: Inverse regularization strength
         solver: Optimization algorithm
         max_iter: Maximum iterations
-        multi_class: Multi-class strategy
         **kwargs: Additional sklearn parameters
     """
     
-    def __init__(self, penalty='l2', C=1.0, solver='lbfgs', max_iter=100, 
-                 multi_class='auto', **kwargs):
+    def __init__(self, penalty='l2', C=1.0, solver='lbfgs', max_iter=100, **kwargs):
         super().__init__(penalty=penalty, C=C, solver=solver, 
-                        max_iter=max_iter, multi_class=multi_class, **kwargs)
+                        max_iter=max_iter, **kwargs)
         self.model = SKLogisticRegression(
-            penalty=penalty, C=C, solver=solver, max_iter=max_iter,
-            multi_class=multi_class, **kwargs
+            penalty=penalty, C=C, solver=solver, max_iter=max_iter, **kwargs
         )
         
     def fit(self, X: np.ndarray, y: np.ndarray) -> 'LogisticRegression':
