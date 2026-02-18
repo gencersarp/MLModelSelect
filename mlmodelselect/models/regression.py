@@ -20,7 +20,6 @@ class LinearRegression(BaseModel):
     
     Parameters:
         fit_intercept: Whether to calculate intercept
-        normalize: Deprecated, use StandardScaler instead
         **kwargs: Additional sklearn parameters
     """
     

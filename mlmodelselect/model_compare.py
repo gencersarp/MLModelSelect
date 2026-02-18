@@ -195,7 +195,7 @@ class ModelCompare:
                     metrics['precision'] = precision_score(y_test, y_pred, average='weighted', zero_division=0)
                     metrics['recall'] = recall_score(y_test, y_pred, average='weighted', zero_division=0)
                     metrics['f1'] = f1_score(y_test, y_pred, average='weighted', zero_division=0)
-                except:
+                except (ValueError, AttributeError) as e:
                     pass
                 
                 # Cross-validation score
@@ -204,7 +204,7 @@ class ModelCompare:
                                                cv=min(self.cv, len(X_train) // 2))
                     metrics['cv_mean'] = cv_scores.mean()
                     metrics['cv_std'] = cv_scores.std()
-                except:
+                except (ValueError, AttributeError) as e:
                     metrics['cv_mean'] = None
                     metrics['cv_std'] = None
                 
@@ -276,7 +276,7 @@ class ModelCompare:
                                                scoring='r2')
                     metrics['cv_mean'] = cv_scores.mean()
                     metrics['cv_std'] = cv_scores.std()
-                except:
+                except (ValueError, AttributeError) as e:
                     metrics['cv_mean'] = None
                     metrics['cv_std'] = None
                 
@@ -333,12 +333,12 @@ class ModelCompare:
                 if metrics['n_clusters'] > 1 and metrics['n_clusters'] < len(X):
                     try:
                         metrics['silhouette'] = silhouette_score(X, labels)
-                    except:
+                    except (ValueError, RuntimeError) as e:
                         metrics['silhouette'] = None
                         
                     try:
                         metrics['davies_bouldin'] = davies_bouldin_score(X, labels)
-                    except:
+                    except (ValueError, RuntimeError) as e:
                         metrics['davies_bouldin'] = None
                 else:
                     metrics['silhouette'] = None
